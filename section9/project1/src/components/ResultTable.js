@@ -1,6 +1,6 @@
 import styles from "./ResultTable.module.css";
 
-const ResultTable = () => {
+const ResultTable = (props) => {
   return (
     <table className={styles.result}>
       <thead>
@@ -13,6 +13,15 @@ const ResultTable = () => {
         </tr>
       </thead>
       <tbody>
+        {props.data.map((data) => (
+          <tr>
+            <td>{data.year}</td>
+            <td>{data.savingsEndOfYear}</td>
+            <td>{data.yearlyInterest}</td>
+            <td>{data.yearlyContribution}</td>
+            <td>{data.year}</td>
+          </tr>
+        ))}
         <tr>
           <td>YEAR NUMBER</td>
           <td>TOTAL SAVINGS END OF YEAR</td>
