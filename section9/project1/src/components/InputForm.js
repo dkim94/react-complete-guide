@@ -27,6 +27,7 @@ const InputForm = (props) => {
     setYearlyContribution("");
     setExpectedReturn("");
     setDuration("");
+    props.onReset();
   };
 
   const submitHandler = (event) => {

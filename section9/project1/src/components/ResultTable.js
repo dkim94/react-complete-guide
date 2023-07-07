@@ -1,5 +1,12 @@
 import styles from "./ResultTable.module.css";
 
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
 const ResultTable = (props) => {
   return (
     <table className={styles.result}>
@@ -14,12 +21,12 @@ const ResultTable = (props) => {
       </thead>
       <tbody>
         {props.data.map((data) => (
-          <tr>
+          <tr key={data.year}>
             <td>{data.year}</td>
-            <td>{data.savingsEndOfYear}</td>
-            <td>{data.yearlyInterest}</td>
-            <td>{data.yearlyContribution}</td>
-            <td>{data.year}</td>
+            <td>{formatter.format(data.totalSavings)}</td>
+            <td>{formatter.format(data.yearlyInterest)}</td>
+            <td>{formatter.format(data.totalInterest)}</td>
+            <td>{formatter.format(data.investedCapital)}</td>
           </tr>
         ))}
         <tr>

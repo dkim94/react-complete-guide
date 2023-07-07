@@ -4,7 +4,7 @@ import InputForm from "./components/InputForm";
 import ResultTable from "./components/ResultTable";
 
 function App() {
-  const [yearlyData, setYearlyData] = useState([]);
+  const [yearlyData, setYearlyData] = useState();
   const calculateHandler = (userInput) => {
     console.log("Called calculateHandler");
     console.log(userInput);
@@ -19,15 +19,27 @@ function App() {
     const duration = +userInput["duration"];
 
     // The below code calculates yearly results (total savings, interest etc)
+    let totalInterest = 0;
+    let investedCapital = 0;
     for (let i = 0; i < duration; i++) {
       const yearlyInterest = currentSavings * expectedReturn;
+      if (i === 0) {
+        totalInterest = yearlyInterest;
+        investedCapital = currentSavings;
+      }
+      else {
+        totalInterest += yearlyInterest;
+        investedCapital += yearlyContribution;
+      }
+
       currentSavings += yearlyInterest + yearlyContribution;
       yearlyData.push({
         // feel free to change the shape of the data pushed to the array!
         year: i + 1,
+        totalSavings: currentSavings,
         yearlyInterest: yearlyInterest,
-        savingsEndOfYear: currentSavings,
-        yearlyContribution: yearlyContribution,
+        totalInterest: totalInterest,
+        investedCapital: investedCapital,
       });
     }
 
@@ -36,15 +48,19 @@ function App() {
     console.log(yearlyData);
   };
 
+  const resetHandler = () => {
+    setYearlyData();
+  };
+
   return (
     <div>
       <Header />
-      <InputForm onSubmit={calculateHandler} />
+      <InputForm onSubmit={calculateHandler} onReset={resetHandler} />
 
       {/* Todo: Show below table conditionally (only once result data is available) */}
       {/* Show fallback text if no data is available */}
 
-      <ResultTable data={yearlyData} />
+      {yearlyData && <ResultTable data={yearlyData} />}
     </div>
   );
 }
