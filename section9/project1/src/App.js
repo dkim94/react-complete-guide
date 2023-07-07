@@ -25,7 +25,7 @@ function App() {
       const yearlyInterest = currentSavings * expectedReturn;
       if (i === 0) {
         totalInterest = yearlyInterest;
-        investedCapital = currentSavings;
+        investedCapital = currentSavings + yearlyContribution;
       }
       else {
         totalInterest += yearlyInterest;
@@ -56,11 +56,8 @@ function App() {
     <div>
       <Header />
       <InputForm onSubmit={calculateHandler} onReset={resetHandler} />
-
-      {/* Todo: Show below table conditionally (only once result data is available) */}
-      {/* Show fallback text if no data is available */}
-
       {yearlyData && <ResultTable data={yearlyData} />}
+      {!yearlyData && <p style={{"textAlign": "center"}}>No investment calculated yet.</p>}
     </div>
   );
 }
