@@ -15,10 +15,10 @@ function App() {
   };
 
   return (
-    <div>
+    <>
       <AddUser onSubmit={submitHandler} />
       {usersList.length > 0 && <UsersList list={usersList} />}
-    </div>
+    </>
   );
 }
 
